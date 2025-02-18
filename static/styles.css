@@ -12,6 +12,7 @@ body {
 }
 
 .container {
+    white-space: pre-line;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -34,6 +35,7 @@ h1 {
 }
 
 .chat-container {
+    white-space: pre-line;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;

@@ -1,0 +1,8 @@
+flask
+python-dotenv
+stripe
+langchain-openai
+fuzzywuzzy
+python-Levenshtein
+gunicorn
+langchain
