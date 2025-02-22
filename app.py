@@ -1,16 +1,14 @@
+# app.py (updated)
 from flask import Flask, render_template, request, jsonify
-from sales_agent import SalesAgent
+from master_agent import MasterAgent
 import stripe
 import os
 
-
 app = Flask(__name__)
-
-# API Keys
-stripe.api_key = ""
+stripe.api_key = os.getenv("STRIPE_API_KEY")
 os.environ["OPENAI_API_KEY"] = ""
 
-agent = SalesAgent()
+sessions = {}
 
 
 @app.route('/')
@@ -20,9 +18,18 @@ def home():
 
 @app.route('/process', methods=['POST'])
 def process():
+    session_id = request.cookies.get('session_id')
+    if not session_id or session_id not in sessions:
+        session_id = os.urandom(24).hex()
+        sessions[session_id] = MasterAgent()
+
     user_input = request.json['message']
+    agent = sessions[session_id]
     response = agent.process_input(user_input)
-    return jsonify({'response': response})
+
+    resp = jsonify({'response': response})
+    resp.set_cookie('session_id', session_id)
+    return resp
 
 
 if __name__ == '__main__':

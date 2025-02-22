@@ -4,25 +4,16 @@ from typing import List
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from tools import (
-    get_product_info,
-    generate_stripe_payment_link,
-    check_mindware_compatibility,
-    schedule_demo
-)
+from tools import check_mindware_compatibility, check_system_requirements, get_installation_guide
 
 
-class SalesAgent:
+class TechnicalAgent:
     def __init__(self):
         self.llm = ChatOpenAI(model="gpt-4", temperature=0.3)
-        self.tools = [
-            get_product_info,
-            generate_stripe_payment_link,
-            check_mindware_compatibility,
-            schedule_demo
-        ]
+        self.tools = [check_mindware_compatibility,
+                      check_system_requirements, get_installation_guide]
         self.prompt = ChatPromptTemplate.from_messages([
-            ("system", "You are a sales agent for Mindware Solutions. Focus on product info, compatibility checks, and closing sales."),
+            ("system", "You are a technical specialist. Handle compatibility checks and installation support."),
             MessagesPlaceholder("chat_history"),
             ("human", "{input}"),
             MessagesPlaceholder("agent_scratchpad"),
