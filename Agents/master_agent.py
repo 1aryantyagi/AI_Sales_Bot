@@ -1,10 +1,9 @@
-# master_agent.py
 from enum import Enum
 from langchain_openai import ChatOpenAI
-from sales_agent import SalesAgent
-from support_agent import SupportAgent
-from technical_agent import TechnicalAgent
-from billing_agent import BillingAgent
+from Agents.sales_agent import SalesAgent
+from Agents.support_agent import SupportAgent
+from Agents.technical_agent import TechnicalAgent
+from Agents.billing_agent import BillingAgent
 
 
 class MasterAgent:
@@ -33,4 +32,5 @@ class MasterAgent:
     def process_input(self, user_input: str) -> str:
         new_agent = self.classify_intent(user_input)
         self.current_agent = new_agent if new_agent in self.agents else "sales"
-        return self.agents[self.current_agent].process_input(user_input)
+        ans = self.agents[self.current_agent].process_input(user_input)
+        return ans

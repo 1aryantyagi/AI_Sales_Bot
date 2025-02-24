@@ -4,16 +4,16 @@ from typing import List
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from tools import check_mindware_compatibility, check_system_requirements, get_installation_guide
+from Agents.tools import process_refund, collect_feedback, schedule_demo, send_email
 
 
-class TechnicalAgent:
+class SupportAgent:
     def __init__(self):
         self.llm = ChatOpenAI(model="gpt-4", temperature=0.3)
-        self.tools = [check_mindware_compatibility,
-                      check_system_requirements, get_installation_guide]
+        self.tools = [process_refund, collect_feedback,
+                      schedule_demo, send_email]
         self.prompt = ChatPromptTemplate.from_messages([
-            ("system", "You are a technical specialist. Handle compatibility checks and installation support."),
+            ("system", "You are a support agent. Handle returns, feedback, and schedule demos. You have to ask about"),
             MessagesPlaceholder("chat_history"),
             ("human", "{input}"),
             MessagesPlaceholder("agent_scratchpad"),

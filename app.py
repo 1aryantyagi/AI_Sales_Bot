@@ -1,12 +1,13 @@
-# app.py (updated)
 from flask import Flask, render_template, request, jsonify
-from master_agent import MasterAgent
+from Agents.master_agent import MasterAgent
 import stripe
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 stripe.api_key = os.getenv("STRIPE_API_KEY")
-os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 sessions = {}
 

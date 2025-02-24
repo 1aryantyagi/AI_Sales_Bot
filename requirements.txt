@@ -6,3 +6,4 @@ fuzzywuzzy
 python-Levenshtein
 gunicorn
 langchain
+twilio
