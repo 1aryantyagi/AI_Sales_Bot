@@ -67,8 +67,7 @@ def handle_voice_input():
         input='speech',
         action='/voice/handle-input',
         method='POST',
-        speech_timeout=5,
-        enhanced=True
+        speech_timeout=5
     )
     gather.say(text_response)
     response.append(gather)

@@ -18,19 +18,31 @@ class MasterAgent:
         self.current_agent = "sales"
 
     def classify_intent(self, user_input: str) -> str:
-        prompt = f"""Classify the user message into one category:
-        - sales: Product questions, purchasing, demos
-        - support: Returns, feedback, issues
-        - technical: Compatibility, installation, requirements
-        - billing: Payments, refunds, invoices
+        prompt = f"""
+        You are an AI assistant that classifies user queries into one of the following categories: 
         
-        Message: {user_input}
-        Category:"""
-        response = self.llm.invoke(prompt)
-        return response.content.strip().lower()
+        - **sales**: Questions about pricing, product features, demos, discounts, or purchasing options.
+        - **support**: Issues related to product returns, troubleshooting, customer feedback, or general assistance.
+        - **technical**: Questions about compatibility, installation, software/hardware requirements, or configuration.
+        - **billing**: Queries about payments, refunds, invoices, subscriptions, or transaction issues.
+        
+        **Examples:**
+        1. "How much does the premium plan cost?" → **sales**
+        2. "My product stopped working, what should I do?" → **support**
+        3. "Does this software work on macOS?" → **technical**
+        4. "I was charged twice for my order!" → **billing**
+        
+        **User Message:** "{user_input}"  
+        **Category (one word response only):**
+        """
+        response = self.llm.invoke(prompt).content.strip().lower()
+
+        if response not in self.agents:
+            response = "sales"
+
+        return response
 
     def process_input(self, user_input: str) -> str:
         new_agent = self.classify_intent(user_input)
-        self.current_agent = new_agent if new_agent in self.agents else "sales"
-        ans = self.agents[self.current_agent].process_input(user_input)
-        return ans
+        self.current_agent = new_agent
+        return self.agents[self.current_agent].process_input(user_input)

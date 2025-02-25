@@ -11,15 +11,13 @@ with open("product_catalog.json", "r") as file:
 @tool
 def get_product_info(search_term: str) -> dict:
     """Retrieve product details by product ID, name, or category."""
-    # Try direct ID match first
     for product in PRODUCT_CATALOG:
         if product["id"] == search_term:
             return product
 
-    # Fuzzy search by name or category
     product_names = [product["name"] for product in PRODUCT_CATALOG]
     best_match, score = process.extractOne(search_term, product_names)
-    if score > 70:  # Threshold for similarity
+    if score > 70:
         for product in PRODUCT_CATALOG:
             if product["name"] == best_match:
                 return product
