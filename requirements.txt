@@ -7,3 +7,4 @@ python-Levenshtein
 gunicorn
 langchain
 twilio
+psycopg2
