@@ -3,6 +3,8 @@
 ## Overview
 Mindware Solutions AI Sales Assistant is a web-based AI-powered chatbot designed to streamline the sales process by engaging potential customers, analyzing their needs, and providing tailored product recommendations. It leverages OpenAI's GPT-4 for conversational AI and integrates with Stripe for seamless payment processing.
 
+The site is live - [Site_Link](https://ai-sales-bot-c4ks.onrender.com/)
+
 ## Features
 - **AI-Powered Conversations:** Uses OpenAI's GPT-4 to interact with users and guide them through the sales funnel.
 - **Sales Stage Automation:** The AI follows a structured sales process, from introduction to closing the deal.
