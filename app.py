@@ -16,7 +16,6 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 def init_db():
-    """Create the table if it doesn't exist."""
     conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
