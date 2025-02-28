@@ -10,16 +10,15 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app.py .
-COPY sales_agent.py .
-COPY sales_tools.py .
-COPY product_catalog.json .
-COPY templates/ ./templates/
+COPY . .
 
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 ENV OPENAI_API_KEY=${OPENAI_API_KEY}
 ENV STRIPE_API_KEY=${STRIPE_API_KEY}
+ENV TWILIO_ACCOUNT_SID = ${TWILIO_ACCOUNT_SID}
+ENV TWILIO_AUTH_TOKEN = ${TWILIO_AUTH_TOKEN}
+
 
 EXPOSE 5000
 
